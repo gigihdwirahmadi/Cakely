@@ -1,0 +1,23 @@
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE cakes (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price VARCHAR(50) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    cake_id INT NOT NULL REFERENCES cakes(id) ON DELETE CASCADE,
+    quantity INT NOT NULL CHECK (quantity > 0),
+    total INT NOT NULL,
+    trx_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
